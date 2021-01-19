@@ -7,7 +7,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = { "fr.training.spring.library" })
 @EnableBatchProcessing(modular = true)
 public class LibraryBatchApplication {
 

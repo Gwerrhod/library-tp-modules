@@ -64,16 +64,21 @@ public class JobConfiguration {
 	}
 
 	@Bean
-	public Step step1() {
-		return stepBuilderFactory.get("step1") //
-				.tasklet(new Tasklet() {
-					@Override
-					public RepeatStatus execute(final StepContribution contribution, final ChunkContext chunkContext)
-							throws Exception {
-						logger.info("Hello Spring batch !");
-						return RepeatStatus.FINISHED;
-					}
-				}).build();
+	public Step step1(final FlatFileItemWriter<LibraryDTO> exportWriter) {
+		//return stepBuilderFactory.get("step1")
+//				.tasklet(new Tasklet() {
+//					@Override
+//					public RepeatStatus execute(final StepContribution contribution, final ChunkContext chunkContext)
+//							throws Exception {
+//						logger.info("Hello Spring batch !");
+//						return RepeatStatus.FINISHED;
+//					}
+//				}).build();
+		return stepBuilderFactory.get("step1").<LibraryDTO, LibraryDTO>chunk(10) //
+				.reader(exportReader()) //
+				.processor(exportProcessor()) //
+				.writer(exportWriter) //
+				.build();
 	}
 
 	/**
