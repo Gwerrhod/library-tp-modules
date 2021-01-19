@@ -68,7 +68,7 @@ public class LibraryJPA {
 		books = library.getBooks().stream().map(BookJPA::new).collect(Collectors.toList());
 	}
 
-	public Library toLibrary() {
+	public Library toLibrary() { // lazy loading n'est plus d'actualité avec cette méthode
 		final Address address = new Address(addressNumber, addressStreet, addressPostalCode, addressCity);
 
 		final Director director = new Director(directorSurname, directorName);
